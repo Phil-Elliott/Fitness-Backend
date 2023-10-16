@@ -1,5 +1,10 @@
 import { readFileSync } from "fs";
 import path from "path";
+import userResolver from "./resolvers/user.resolver";
+import authResolver from "./resolvers/auth.resolver";
+import workoutResolver from "./resolvers/workout.resolver";
+import workoutExerciseResolver from "./resolvers/workoutExercise.resolver";
+import exerciseSetResolver from "./resolvers/exerciseSet.resolver";
 
 const userTypes = readFileSync(
   path.join(__dirname, "./typeDefs/user.graphql"),
@@ -36,7 +41,7 @@ const exerciseSetTypes = readFileSync(
   }
 );
 
-const typeDefs = `
+export const typeDefs = `
   ${userTypes}
     ${authTypes}
     ${workoutTypes}
@@ -44,4 +49,19 @@ const typeDefs = `
     ${exerciseSetTypes}
 `;
 
-export default typeDefs;
+export const resolvers = {
+  Query: {
+    ...userResolver.Query,
+    ...authResolver.Query,
+    ...workoutResolver.Query,
+    ...workoutExerciseResolver.Query,
+    ...exerciseSetResolver.Query,
+  },
+  Mutation: {
+    ...userResolver.Mutation,
+    ...authResolver.Mutation,
+    ...workoutResolver.Mutation,
+    ...workoutExerciseResolver.Mutation,
+    ...exerciseSetResolver.Mutation,
+  },
+};

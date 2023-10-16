@@ -7,11 +7,31 @@ type ExerciseSet {
   WorkoutExercise: WorkoutExercise
 }
 
-# Queries and Mutations
 type Query {
-  # Define your queries here (e.g., getUsers: [User!]!)
+  # Get a single ExerciseSet by ID
+  exerciseSet(id: Int!): ExerciseSet
+
+  # Get all ExerciseSets of a specific WorkoutExercise
+  exerciseSetsByWorkoutExercise(workoutExerciseId: Int!): [ExerciseSet!]!
 }
 
 type Mutation {
-  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+  # Create a new ExerciseSet for a WorkoutExercise
+  createExerciseSet(
+    workoutExerciseId: Int!
+    setNumber: Int!
+    reps: Int!
+    weight: Float!
+  ): ExerciseSet!
+
+  # Update an ExerciseSet by ID
+  updateExerciseSet(
+    id: Int!
+    setNumber: Int
+    reps: Int
+    weight: Float
+  ): ExerciseSet!
+
+  # Delete an ExerciseSet by ID
+  deleteExerciseSet(id: Int!): ExerciseSet!
 }

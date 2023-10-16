@@ -6,11 +6,21 @@ type User {
   auths: [Auth!]!
 }
 
-# Queries and Mutations
 type Query {
-  # Define your queries here (e.g., getUsers: [User!]!)
+  # Get all users
+  users: [User!]!
+
+  # Get a single user by ID
+  user(id: Int!): User
 }
 
 type Mutation {
-  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+  # Create a new user
+  createUser(email: String!, name: String): User!
+
+  # Update an existing user by ID
+  updateUser(id: Int!, email: String!, name: String): User!
+
+  # Delete an existing user by ID
+  deleteUser(id: Int!): User!
 }

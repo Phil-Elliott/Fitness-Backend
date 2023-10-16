@@ -5,11 +5,21 @@ type Auth {
   token: String!
 }
 
-# Queries and Mutations
 type Query {
-  # Define your queries here (e.g., getUsers: [User!]!)
+  # Get a single Auth by ID
+  auth(id: Int!): Auth
+
+  # Get all Auths
+  allAuths: [Auth!]!
 }
 
 type Mutation {
-  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+  # Create a new Auth
+  createAuth(userId: Int!, token: String!): Auth!
+
+  # Update an Auth by ID
+  updateAuth(id: Int!, token: String!): Auth!
+
+  # Delete an Auth by ID
+  deleteAuth(id: Int!): Auth!
 }

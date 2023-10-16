@@ -1,16 +1,26 @@
 type Workout {
   id: Int!
-  date: DateTime!
+  date: String!
   userId: Int!
   user: User!
   exercises: [WorkoutExercise!]!
 }
 
-# Queries and Mutations
 type Query {
-  # Define your queries here (e.g., getUsers: [User!]!)
+  # Get a single Workout by ID
+  workout(id: Int!): Workout
+
+  # Get all Workouts of a specific User
+  userWorkouts(userId: Int!): [Workout!]!
 }
 
 type Mutation {
-  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+  # Create a new Workout for a User
+  createWorkout(userId: Int!, date: String): Workout!
+
+  # Update a Workout by ID
+  updateWorkout(id: Int!, date: String!): Workout!
+
+  # Delete a Workout by ID
+  deleteWorkout(id: Int!): Workout!
 }

@@ -12,8 +12,8 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import AppError from "./utils/appError";
-import typeDefs from "./graphql/typeDefs";
-import resolvers from "./graphql/resolvers/resolvers";
+import { typeDefs, resolvers } from "./graphql";
+
 import bodyParser from "body-parser";
 
 // Load environment variables
