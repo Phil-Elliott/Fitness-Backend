@@ -1,0 +1,17 @@
+type ExerciseSet {
+  id: Int!
+  setNumber: Int!
+  reps: Int!
+  weight: Float!
+  workoutExerciseId: Int
+  WorkoutExercise: WorkoutExercise
+}
+
+# Queries and Mutations
+type Query {
+  # Define your queries here (e.g., getUsers: [User!]!)
+}
+
+type Mutation {
+  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+}

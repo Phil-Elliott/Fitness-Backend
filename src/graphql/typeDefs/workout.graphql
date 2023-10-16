@@ -1,0 +1,16 @@
+type Workout {
+  id: Int!
+  date: DateTime!
+  userId: Int!
+  user: User!
+  exercises: [WorkoutExercise!]!
+}
+
+# Queries and Mutations
+type Query {
+  # Define your queries here (e.g., getUsers: [User!]!)
+}
+
+type Mutation {
+  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+}

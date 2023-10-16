@@ -1,0 +1,15 @@
+type Auth {
+  id: Int!
+  userId: Int!
+  user: User!
+  token: String!
+}
+
+# Queries and Mutations
+type Query {
+  # Define your queries here (e.g., getUsers: [User!]!)
+}
+
+type Mutation {
+  # Define your mutations here (e.g., createUser(email: String!, name: String): User!)
+}
