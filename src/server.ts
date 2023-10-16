@@ -1,4 +1,4 @@
-import app from "./app";
+import { app, httpServer } from "./app";
 import { prisma } from "./prisma";
 import dotenv from "dotenv";
 import path from "path";
@@ -7,7 +7,7 @@ dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 
 const PORT: number = +process.env.PORT! || 3000;
 
-const server = app.listen(PORT, (error?: any) => {
+const server = httpServer.listen(PORT, (error?: any) => {
   if (error) {
     console.error(`[server]: Error starting server: ${error.message}`);
     return;
