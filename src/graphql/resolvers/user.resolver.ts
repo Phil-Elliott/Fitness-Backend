@@ -15,24 +15,20 @@ const userResolvers = {
     // Create a new user
     createUser: async (
       _: any,
-      { email, name }: { email: string; name?: string }
+      { clerkId, name }: { clerkId: string; name?: string }
     ) => {
       return await prisma.user.create({
         data: {
-          email,
+          clerkId,
           name,
         },
       });
     },
     // Update an existing user
-    updateUser: async (
-      _: any,
-      { id, email, name }: { id: number; email: string; name?: string }
-    ) => {
+    updateUser: async (_: any, { id, name }: { id: number; name?: string }) => {
       return await prisma.user.update({
         where: { id },
         data: {
-          email,
           name,
         },
       });

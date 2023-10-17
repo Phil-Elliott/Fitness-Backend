@@ -1,9 +1,8 @@
 type User {
   id: Int!
-  email: String!
+  clerkId: String!
   name: String
   workouts: [Workout!]!
-  auths: [Auth!]!
 }
 
 type Query {
@@ -16,10 +15,10 @@ type Query {
 
 type Mutation {
   # Create a new user
-  createUser(email: String!, name: String): User!
+  createUser(clerkId: String!, name: String): User!
 
   # Update an existing user by ID
-  updateUser(id: Int!, email: String!, name: String): User!
+  updateUser(id: Int!, name: String): User!
 
   # Delete an existing user by ID
   deleteUser(id: Int!): User!
