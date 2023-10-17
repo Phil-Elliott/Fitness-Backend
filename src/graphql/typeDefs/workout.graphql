@@ -3,7 +3,7 @@ type Workout {
   date: String!
   userId: Int!
   user: User!
-  exercises: [WorkoutExercise!]!
+  exercises: [WorkoutExercise!]
 }
 
 type Query {
