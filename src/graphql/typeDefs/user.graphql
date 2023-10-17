@@ -2,7 +2,7 @@ type User {
   id: Int!
   clerkId: String!
   name: String
-  workouts: [Workout!]!
+  workouts: [Workout!]
 }
 
 type Query {

@@ -1,0 +1,5 @@
+Graphql
+- Resolvers
+     - user
+        - figure out workouts and how it connects to user
+        - have everything delete when user is deleted (maybe workouts get deleted and the chain goes down)

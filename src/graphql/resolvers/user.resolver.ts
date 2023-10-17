@@ -8,7 +8,11 @@ const userResolvers = {
     },
     // Get a single user
     user: async (_: any, { id }: { id: number }) => {
-      return await prisma.user.findUnique({ where: { id } });
+      const user = await prisma.user.findUnique({ where: { id } });
+      if (!user) {
+        throw new Error(`No user found with ID ${id}`);
+      }
+      return user;
     },
   },
   Mutation: {
