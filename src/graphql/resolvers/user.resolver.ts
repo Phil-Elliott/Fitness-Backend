@@ -1,9 +1,14 @@
-import { prisma } from "../../prisma";
+import prisma from "../../../libs/prisma";
+// import { PrismaClient } from "@prisma/client";
+// const prisma = new PrismaClient();
+
+console.log(prisma);
 
 const userResolvers = {
   Query: {
     // Get all users
     users: async () => {
+      // console.log(prisma);
       return await prisma.user.findMany();
     },
     // Get a single user

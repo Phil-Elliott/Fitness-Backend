@@ -1,5 +1,5 @@
 import { app, httpServer } from "./app";
-import { prisma } from "./prisma";
+import prisma from "../libs/prisma";
 import dotenv from "dotenv";
 import path from "path";
 

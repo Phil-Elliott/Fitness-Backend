@@ -1,5 +1,3 @@
-Graphql
-- Resolvers
-     - user
-        - figure out workouts and how it connects to user
-        - have everything delete when user is deleted (maybe workouts get deleted and the chain goes down)
+1) Figure out cascade delete
+2) Connect clerk and secure routes
+3) Add weight measurement (lb or kg) to exerciseSets
