@@ -13,6 +13,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import AppError from "./utils/appError";
 import { typeDefs, resolvers } from "./graphql";
+import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 
 import bodyParser from "body-parser";
 
@@ -63,7 +64,11 @@ const server = new ApolloServer({
 // Start Apollo Server and set up middleware for it
 (async () => {
   await server.start();
-  app.use(cors(), bodyParser.json(), expressMiddleware(server));
+  app.use(cors());
+  app.use(bodyParser.json());
+  app.use("/api", ClerkExpressRequireAuth());
+  app.use(expressMiddleware(server));
+  // app.use(cors(), bodyParser.json(), expressMiddleware(server));
 })();
 
 // Error handling middleware
