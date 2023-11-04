@@ -13,7 +13,10 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import AppError from "./utils/appError";
 import { typeDefs, resolvers } from "./graphql";
-import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
+import {
+  ClerkExpressRequireAuth,
+  ClerkExpressWithAuth,
+} from "@clerk/clerk-sdk-node";
 
 import bodyParser from "body-parser";
 
@@ -33,7 +36,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Enable CORS
-app.use(cors());
+// app.use(cors());
 
 // Body parser
 app.use(express.json({ limit: "10kb" }));
@@ -44,7 +47,7 @@ const limiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   message: "Too many requests from this IP, please try again in an hour!",
 });
-app.use("/api", limiter);
+app.use("/graphql", limiter);
 
 // Set security HTTP headers
 app.use(
@@ -66,12 +69,13 @@ const server = new ApolloServer({
   await server.start();
   app.use(cors());
   app.use(bodyParser.json());
-  app.use("/api", ClerkExpressRequireAuth());
+  app.use("/graphql", ClerkExpressRequireAuth());
   app.use(expressMiddleware(server));
-  // app.use(cors(), bodyParser.json(), expressMiddleware(server));
+  // app.use(bodyParser.json(), expressMiddleware(server));
 })();
 
 // Error handling middleware
+
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(err.statusCode || 500).json({
     status: err.status,
