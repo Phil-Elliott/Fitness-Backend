@@ -26,7 +26,6 @@ const WorkoutResolvers = {
 
     // Get all Workouts of a specific User
     userWorkouts: async (_: any, args: { userId: number }) => {
-      console.log("userWorkouts");
       const workouts = await prisma.workout.findMany({
         where: {
           userId: args.userId,

@@ -14,12 +14,19 @@ model User {
   workouts Workout[]
 }
 
+enum WorkoutStatus {
+  PLANNED
+  STARTED
+  COMPLETED
+}
+
 model Workout {
   id        Int               @id @default(autoincrement())
   date      DateTime          @default(now())
   userId    Int
   user      User              @relation(fields: [userId], references: [id])
   exercises WorkoutExercise[]
+  status    WorkoutStatus     @default(PLANNED)
 }
 
 model WorkoutExercise {
