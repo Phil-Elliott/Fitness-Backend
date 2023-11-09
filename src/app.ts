@@ -13,10 +13,15 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import AppError from "./utils/appError";
 import { typeDefs, resolvers } from "./graphql";
-import {
-  ClerkExpressRequireAuth,
-  ClerkExpressWithAuth,
-} from "@clerk/clerk-sdk-node";
+import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
+
+declare module "express-serve-static-core" {
+  interface Request {
+    auth?: {
+      userId: string; // or any other properties Clerk adds to the auth object
+    };
+  }
+}
 
 import bodyParser from "body-parser";
 
@@ -69,9 +74,17 @@ const server = new ApolloServer({
   await server.start();
   app.use(cors());
   app.use(bodyParser.json());
-  app.use("/graphql", ClerkExpressRequireAuth());
-  app.use(expressMiddleware(server));
-  // app.use(bodyParser.json(), expressMiddleware(server));
+
+  app.use(
+    "/graphql",
+    ClerkExpressRequireAuth(),
+    expressMiddleware(server, {
+      context: async ({ req }) => {
+        // Assuming Clerk middleware adds the auth object to the request
+        return { user: req.auth };
+      },
+    })
+  );
 })();
 
 // Error handling middleware
