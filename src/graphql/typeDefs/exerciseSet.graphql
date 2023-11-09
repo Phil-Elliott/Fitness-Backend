@@ -1,0 +1,37 @@
+type ExerciseSet {
+  id: Int!
+  setNumber: Int!
+  reps: Int!
+  weight: Float!
+  workoutExerciseId: Int
+  WorkoutExercise: WorkoutExercise
+}
+
+type Query {
+  # Get a single ExerciseSet by ID
+  exerciseSet(id: Int!): ExerciseSet
+
+  # Get all ExerciseSets of a specific WorkoutExercise
+  exerciseSetsByWorkoutExercise(workoutExerciseId: Int!): [ExerciseSet!]!
+}
+
+type Mutation {
+  # Create a new ExerciseSet for a WorkoutExercise
+  createExerciseSet(
+    workoutExerciseId: Int!
+    setNumber: Int!
+    reps: Int!
+    weight: Float!
+  ): ExerciseSet!
+
+  # Update an ExerciseSet by ID
+  updateExerciseSet(
+    id: Int!
+    setNumber: Int
+    reps: Int
+    weight: Float
+  ): ExerciseSet!
+
+  # Delete an ExerciseSet by ID
+  deleteExerciseSet(id: Int!): ExerciseSet!
+}

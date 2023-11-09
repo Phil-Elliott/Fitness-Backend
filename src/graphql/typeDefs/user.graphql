@@ -1,0 +1,25 @@
+type User {
+  id: Int!
+  clerkId: String!
+  name: String
+  workouts: [Workout!]
+}
+
+type Query {
+  # Get all users
+  users: [User!]!
+
+  # Get a single user by ID
+  user(id: Int!): User
+}
+
+type Mutation {
+  # Create a new user
+  createUser(clerkId: String!, name: String): User!
+
+  # Update an existing user by ID
+  updateUser(id: Int!, name: String): User!
+
+  # Delete an existing user by ID
+  deleteUser(id: Int!): User!
+}

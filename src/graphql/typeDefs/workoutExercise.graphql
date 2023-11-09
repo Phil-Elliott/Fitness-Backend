@@ -1,0 +1,26 @@
+type WorkoutExercise {
+  id: Int!
+  exercise: String!
+  workoutId: Int!
+  workout: Workout!
+  exerciseSets: [ExerciseSet!]
+}
+
+type Query {
+  # Get a single WorkoutExercise by ID
+  workoutExercise(id: Int!): WorkoutExercise
+
+  # Get all WorkoutExercises of a specific Workout
+  workoutExercisesByWorkout(workoutId: Int!): [WorkoutExercise!]!
+}
+
+type Mutation {
+  # Create a new WorkoutExercise for a Workout
+  createWorkoutExercise(workoutId: Int!, exercise: String!): WorkoutExercise!
+
+  # Update a WorkoutExercise by ID
+  updateWorkoutExercise(id: Int!, exercise: String!): WorkoutExercise!
+
+  # Delete a WorkoutExercise by ID
+  deleteWorkoutExercise(id: Int!): WorkoutExercise!
+}

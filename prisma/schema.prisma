@@ -9,17 +9,15 @@ datasource db {
 
 model User {
   id       Int       @id @default(autoincrement())
-  email    String    @unique
+  clerkId  String?   @unique
   name     String?
   workouts Workout[]
-  auths    Auth[]
 }
 
-model Auth {
-  id     Int    @id @default(autoincrement())
-  userId Int
-  user   User   @relation(fields: [userId], references: [id])
-  token  String
+enum WorkoutStatus {
+  PLANNED
+  STARTED
+  COMPLETED
 }
 
 model Workout {
@@ -28,6 +26,7 @@ model Workout {
   userId    Int
   user      User              @relation(fields: [userId], references: [id])
   exercises WorkoutExercise[]
+  status    WorkoutStatus     @default(PLANNED)
 }
 
 model WorkoutExercise {
