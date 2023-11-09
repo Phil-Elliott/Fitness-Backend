@@ -25,10 +25,17 @@ const WorkoutResolvers = {
     },
 
     // Get all Workouts of a specific User
-    userWorkouts: async (_: any, args: { userId: number }) => {
+    userWorkouts: async (_: any, args: { date: Date }, context: any) => {
+      const userId = context?.user?.userId;
+
+      // If no user is found in the context, it means the request was not authenticated properly
+      if (!userId) {
+        throw new Error("Authentication required");
+      }
+
       const workouts = await prisma.workout.findMany({
         where: {
-          userId: args.userId,
+          userId: userId,
         },
         include: {
           exercises: true, // Include related exercises
