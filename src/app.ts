@@ -5,13 +5,11 @@ import express from "express";
 import { Request, Response, NextFunction } from "express";
 import http from "http";
 import pkg from "body-parser";
-const { json } = pkg;
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import AppError from "./utils/appError";
 import { typeDefs, resolvers } from "./graphql";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 

@@ -4,6 +4,8 @@ import prisma from "../../../libs/__mocks__/prisma";
 
 vi.mock("../../../libs/prisma");
 
+type WorkoutStatus = "PLANNED" | "STARTED" | "COMPLETED";
+
 const MOCK_WORKOUT = {
   id: 1,
   userId: 1,
@@ -12,6 +14,7 @@ const MOCK_WORKOUT = {
     { id: 1, name: "Push-up" },
     { id: 2, name: "Squat" },
   ],
+  status: "COMPLETED" as WorkoutStatus,
 };
 
 const MOCK_WORKOUTS = [
@@ -21,12 +24,14 @@ const MOCK_WORKOUTS = [
     userId: 1,
     date: new Date("2022-05-15"),
     exercises: [{ id: 1, name: "Bench Press" }],
+    status: "PLANNED" as WorkoutStatus,
   },
   {
     id: 3,
-    userId: 1,
+    userId: 2,
     date: new Date(),
     exercises: [{ id: 1, name: "Deadlift" }],
+    status: "STARTED" as WorkoutStatus,
   },
 ];
 
@@ -42,15 +47,24 @@ describe("Query resolvers", () => {
     });
   });
 
-  test("Gets all Workouts of a specific User", async () => {
+  test("Gets all Workouts of a specific User on a specific day", async () => {
     prisma.workout.findMany.mockResolvedValue(MOCK_WORKOUTS);
 
-    const results = await WorkoutResolvers.Query.userWorkouts(null, {
-      userId: 1,
-    });
+    const results = await WorkoutResolvers.Query.userWorkouts(
+      null,
+      { date: new Date() },
+      { user: { userId: 1 } }
+    );
+
+    // Filter mock workouts for the specific date and the user ID
+    const mockWorkoutsOnSpecificDate = MOCK_WORKOUTS.filter(
+      (workout) =>
+        workout.date.toISOString().split("T")[0] ===
+          new Date().toISOString().split("T")[0] && workout.userId === 1
+    );
 
     expect(results).toStrictEqual(
-      MOCK_WORKOUTS.map((workout) => ({
+      mockWorkoutsOnSpecificDate.map((workout) => ({
         ...workout,
         date: workout.date.toISOString(),
       }))
