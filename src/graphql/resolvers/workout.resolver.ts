@@ -33,19 +33,31 @@ const WorkoutResolvers = {
         throw new Error("Authentication required");
       }
 
-      const workouts = await prisma.workout.findMany({
+      // Create a date range for the specified day
+      const startDate = new Date(args.date);
+      startDate.setHours(0, 0, 0, 0); // Set to the start of the day
+
+      const endDate = new Date(args.date);
+      endDate.setHours(23, 59, 59, 999); // Set to the end of the day
+
+      // Get all workouts for the specified user and date range
+      const workoutsSelected = await prisma.workout.findMany({
         where: {
           userId: userId,
+          date: {
+            gte: startDate,
+            lt: endDate,
+          },
         },
         include: {
-          exercises: true, // Include related exercises
+          exercises: true,
         },
       });
 
       // Map over the workouts array and transform the date for each workout
-      return workouts.map((workout) => ({
+      return workoutsSelected.map((workout) => ({
         ...workout,
-        date: workout.date.toISOString(),
+        date: workout.date.toISOString().split("T")[0], // Convert to ISO string and remove time
       }));
     },
   },

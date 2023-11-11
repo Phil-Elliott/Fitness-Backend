@@ -56,17 +56,10 @@ describe("Query resolvers", () => {
       { user: { userId: 1 } }
     );
 
-    // Filter mock workouts for the specific date and the user ID
-    const mockWorkoutsOnSpecificDate = MOCK_WORKOUTS.filter(
-      (workout) =>
-        workout.date.toISOString().split("T")[0] ===
-          new Date().toISOString().split("T")[0] && workout.userId === 1
-    );
-
     expect(results).toStrictEqual(
-      mockWorkoutsOnSpecificDate.map((workout) => ({
-        ...workout,
-        date: workout.date.toISOString(),
+      MOCK_WORKOUTS.map((w) => ({
+        ...w,
+        date: w.date.toISOString().split("T")[0],
       }))
     );
   });
